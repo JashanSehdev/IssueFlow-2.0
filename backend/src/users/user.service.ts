@@ -99,6 +99,9 @@ export class UsersService extends BaseService <User>{
       where: {
         id,
       },
+      relations : {
+        Profile : true
+      },
       select: {
         id: true,
         username: true,
@@ -106,6 +109,7 @@ export class UsersService extends BaseService <User>{
         createdAt: true,
         role: true,
         avatar: true,
+        Profile : true
       },
     });
   }

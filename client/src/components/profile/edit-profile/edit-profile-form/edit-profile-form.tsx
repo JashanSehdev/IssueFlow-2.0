@@ -1,21 +1,44 @@
 "use client";
 import ControlField from "@/components/form/controller-field/control-field";
-import { Grid, Stack } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Button, Grid, Stack } from "@mui/material";
+import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  ProfileInput,
+  ProfileOutput,
+  profileSchema,
+} from "./edit-profile.type";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAppDispatch } from "@/features/store";
+import { createProfileAsync } from "@/features/auth/handle-profile/profile.action";
 
-export default function EditProfileForm() {
-  const { control, handleSubmit } = useForm();
+interface EditProfileProp {
+  defaultValues?: ProfileOutput;
+  close: () => void;
+}
+export default function EditProfileForm({
+  defaultValues,
+  close,
+}: EditProfileProp) {
+  const dispatch = useAppDispatch()
+  const { control, handleSubmit } = useForm<
+    ProfileInput,
+    unknown,
+    ProfileOutput
+  >({
+    resolver: zodResolver(profileSchema),
+    defaultValues,
+  });
 
-  const onSubmit = (data : unknown) => { // needed to update it
-    console.log(data)
-  }
+  const onSubmit: SubmitHandler<ProfileOutput> = (data) => {
+    dispatch(createProfileAsync(data))
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid size={6}>
           <Stack spacing={2}>
             <ControlField
-              name="Firstname"
+              name="firstName"
               label="First Name"
               placeholder="Joe"
               control={control}
@@ -24,22 +47,33 @@ export default function EditProfileForm() {
             <ControlField
               name="mobileNumber"
               label="Mobile Number"
-              placeholder="Joe"
+              placeholder="9878xxxxxx"
               control={control}
             />
           </Stack>
         </Grid>
 
         <Grid size={6}>
-          <Stack>
+          <Stack spacing={2}>
             <ControlField
               name="lastName"
               label="Last Name"
               placeholder="Joe"
               control={control}
             />
+
+            <ControlField
+              name="age"
+              label="Age"
+              placeholder="Enter Your Age"
+              control={control}
+            />
           </Stack>
         </Grid>
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+        <Button onClick={close} variant="outlined">Cancel</Button>
       </Grid>
     </form>
   );

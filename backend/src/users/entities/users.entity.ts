@@ -1,6 +1,9 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn,type Relation, UpdateDateColumn } from "typeorm";
 import { Role } from "../enum/roles.enum.js";
 import { Status } from "../enum/status.enum.js";
+import { Profile } from "../../profile/entities/profile.entity.js";
+import { Workspace } from "../../workspace/entities/workspace.entity.js";
+import { Member } from "../../member/entities/member.entity.js";
 
 @Entity('users')
 
@@ -35,4 +38,13 @@ export class User {
 
     @UpdateDateColumn()
     updatedAt : Date
+
+    @OneToOne(() => Profile, (profile) => profile.User)
+    Profile : Relation<Profile>
+
+    @OneToMany(()=>Workspace, (ws) => ws.Owner)
+    CreatedWorkspaces : Relation<Workspace[]>
+
+    @OneToMany(() => Member, (member) => member.Member)
+    Workspaces : Relation<Member[]>
 }

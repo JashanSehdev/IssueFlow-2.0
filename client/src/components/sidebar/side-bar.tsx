@@ -39,7 +39,7 @@ const drawerWidth = 240;
 const menuItems = [
   { title: "Profile", path: "/profile", icon: <PersonIcon /> },
   { title: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
-  { title: "Groups", path: "/groups", icon: <GroupIcon /> },
+  { title: "workspace", path: "/worspaces", icon: <GroupIcon /> },
   { title: "Settings", path: "/settings", icon: <SettingsIcon /> },
 ];
 

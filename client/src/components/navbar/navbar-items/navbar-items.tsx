@@ -52,6 +52,15 @@ export default function NavbarItems() {
             </ListItem>
           </Link>
         ))}
+
+        {
+          user && (<Link key={"workspace"} href={"/workspaces"} className={styles.link}>
+            <ListItem
+            >
+              <ListItemText secondary={'workspace'} />
+            </ListItem>
+          </Link>)
+        }
     </Stack>
   );
 }

@@ -6,6 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module.js';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthMiddleware } from './middleware/auth.middleware.js';
+import { ProfileModule } from './profile/profile.module.js';
+import { WorkspaceModule } from './workspace/workspace.module.js';
+import { MemberModule } from './member/member.module.js';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -43,6 +46,12 @@ import { AuthMiddleware } from './middleware/auth.middleware.js';
     }),
 
     AuthModule,
+
+    ProfileModule,
+
+    WorkspaceModule,
+
+    MemberModule,
   ],
   controllers: [AppController],
   providers: [AppService],

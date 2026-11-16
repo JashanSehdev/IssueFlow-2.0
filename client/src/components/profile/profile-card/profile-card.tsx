@@ -8,6 +8,7 @@ import CloudinaryUploadController from "@/components/form/upload-widget/upload-w
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "@/features/store";
 import { changeAvatarAsync } from "@/features/auth/handle-user/users.action";
+import EditProfileCard from "../edit-profile/edit-profile";
 
 interface avatarInput {
   avatar: string;
@@ -63,12 +64,7 @@ export default function ProfileCard() {
           </Stack>
         </Stack>
         <Box>
-          <Button variant="outlined" color="secondary">
-            <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
-              <EditIcon fontSize="small" />
-              <Typography>Edit</Typography>
-            </Stack>
-          </Button>
+          <EditProfileCard/>
         </Box>
       </Stack>
     </Paper>
